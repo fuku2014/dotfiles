@@ -1,5 +1,3 @@
-﻿#!/bin/sh
-
-ln -sf ./.vimrc ~/.vimrc
-ln -sf ./.gitconfig ~/.gitconfig
-ln -sf ./.tmux.conf ~/.tmux.conf
+cp ./.vimrc ~/.vimrc
+cp ./.gitconfig ~/.gitconfig
+cp ./.tmux.conf ~/.tmux.conf
