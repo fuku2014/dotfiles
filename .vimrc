@@ -32,7 +32,6 @@ set smartcase
 set wrapscan
 
 "" Encoding
-set bomb
 set ttyfast
 
 "" Directories for swp files
@@ -86,6 +85,36 @@ set modelines=10
 set title
 set titleold="Terminal"
 set titlestring=%F
+
+
+"*****************************************************************************
+"" Coffee
+"*****************************************************************************
+set runtimepath+=~/.vim/bundle/neobundle.vim/
+call neobundle#begin(expand('~/.vim/bundle/'))
+NeoBundleFetch 'Shougo/neobundle.vim'
+
+NeoBundle 'kchmck/vim-coffee-script'
+NeoBundle 'nathanaelkane/vim-indent-guides'
+
+call neobundle#end()
+
+NeoBundleCheck
+
+au BufRead,BufNewFile,BufReadPre *.coffee   set filetype=coffee
+autocmd FileType coffee     setlocal sw=2 sts=2 ts=2 et
+
+let g:indent_guides_start_level=2
+let g:indent_guides_auto_colors=0
+let g:indent_guides_enable_on_vim_startup=0
+let g:indent_guides_color_change_percent=20
+let g:indent_guides_guide_size=1
+let g:indent_guides_space_guides=1
+
+hi IndentGuidesOdd  ctermbg=235
+hi IndentGuidesEven ctermbg=237
+au FileType coffee,ruby,javascript,python IndentGuidesEnable
+nmap <silent><Leader>ig <Plug>IndentGuidesToggle
 
 "*****************************************************************************
 "" Functions
