@@ -16,7 +16,9 @@ filetype plugin on
 "" Tabs. May be overriten by autocmd rules
 set tabstop=2
 set shiftwidth=2
+set softtabstop=2
 set expandtab
+set autoindent
 
 "" Map leader to ,
 let mapleader=','
@@ -62,24 +64,6 @@ set nocursorline
 set guioptions=egmrti
 set gfn=Monospace\ 8
 
-if has("gui_running")
-  if has("gui_mac") || has("gui_macvim")
-    set guifont=Menlo:h12
-    set transparency=7
-  endif
-else
-  let g:CSApprox_loaded = 1
-
-  if $COLORTERM == 'gnome-terminal'
-    set term=gnome-256color
-  else
-    if $TERM == 'xterm'
-      set term=xterm-256color
-    endif
-  endif
-endif
-
-set backspace=indent,eol,start
 set modeline
 set modelines=10
 set title
@@ -87,46 +71,40 @@ set titleold="Terminal"
 set titlestring=%F
 
 
-"*****************************************************************************
-"" Coffee
-"*****************************************************************************
+
 set runtimepath+=~/.vim/bundle/neobundle.vim/
 call neobundle#begin(expand('~/.vim/bundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 
+"Plugins
+NeoBundle 'scrooloose/nerdtree'
+NeoBundle 'nathanaelkane/vim-indent-guides'  
+NeoBundle 'Shougo/neocomplete.vim'
 NeoBundle 'kchmck/vim-coffee-script'
-NeoBundle 'nathanaelkane/vim-indent-guides'
+NeoBundle 'nono/vim-handlebars'
 
 call neobundle#end()
-
+filetype plugin indent on
 NeoBundleCheck
 
-au BufRead,BufNewFile,BufReadPre *.coffee   set filetype=coffee
-autocmd FileType coffee     setlocal sw=2 sts=2 ts=2 et
-
-let g:indent_guides_start_level=2
+map <C-e> :NERDTreeToggle<CR>
 let g:indent_guides_auto_colors=0
-let g:indent_guides_enable_on_vim_startup=0
-let g:indent_guides_color_change_percent=20
+autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd   ctermbg=120
+let g:indent_guides_enable_on_vim_startup=1
 let g:indent_guides_guide_size=1
-let g:indent_guides_space_guides=1
+autocmd BufRead *.php\|*.ctp\|*.tpl :set dictionary=~/.vim/dictionaries/php.dict filetype=php
 
-hi IndentGuidesOdd  ctermbg=235
-hi IndentGuidesEven ctermbg=237
-au FileType coffee,ruby,javascript,python IndentGuidesEnable
-nmap <silent><Leader>ig <Plug>IndentGuidesToggle
+let g:neocomplcache_enable_at_startup = 1
+let g:neocomplcache_enable_camel_case_completion = 1
+let g:neocomplcache_enable_underbar_completion = 1
+let g:neocomplcache_smart_case = 1
+let g:neocomplcache_min_syntax_length = 3
+let g:neocomplcache_manual_completion_start_length = 0
+let g:neocomplcache_caching_percent_in_statusline = 1
+let g:neocomplcache_enable_skip_completion = 1
+let g:neocomplcache_skip_input_time = '0.5'
 
-"*****************************************************************************
-"" Functions
-"*****************************************************************************
-function s:setupWrapping()
-  set wrap
-  set wm=2
-  set textwidth=79
-endfunction
-
-function TrimWhiteSpace()
-  let @*=line(".")
-  %s/\s*$//e
-  ''
-endfunction
+au BufRead,BufNewFile,BufReadPre *.coffee   set filetype=coffee
+autocmd FileType coffee    setlocal sw=2 sts=2 ts=2 et
+autocmd QuickFixCmdPost * nested cwindow | redraw! 
+nnoremap <silent> <C-C> :CoffeeCompile vert <CR><C-w>h
