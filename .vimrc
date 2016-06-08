@@ -14,10 +14,9 @@ filetype on
 filetype plugin on
 
 "" Tabs. May be overriten by autocmd rules
-set tabstop=2
+set tabstop=4
 set shiftwidth=2
 set softtabstop=2
-set expandtab
 set autoindent
 
 "" Map leader to ,
@@ -82,6 +81,8 @@ NeoBundle 'nathanaelkane/vim-indent-guides'
 NeoBundle 'Shougo/neocomplete.vim'
 NeoBundle 'kchmck/vim-coffee-script'
 NeoBundle 'nono/vim-handlebars'
+NeoBundle 'vim-jp/vim-go-extra'
+NeoBundle 'google/vim-ft-go'
 
 call neobundle#end()
 filetype plugin indent on
@@ -109,3 +110,4 @@ au BufRead,BufNewFile,BufReadPre *.coffee   set filetype=coffee
 autocmd FileType coffee    setlocal sw=2 sts=2 ts=2 et
 autocmd QuickFixCmdPost * nested cwindow | redraw! 
 nnoremap <silent> <C-C> :CoffeeCompile vert <CR><C-w>h
+
