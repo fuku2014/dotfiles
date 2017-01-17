@@ -1,0 +1,8 @@
+neobundle.vim
+neocomplete.vim
+nerdtree
+vim-coffee-script
+vim-ft-go
+vim-go-extra
+vim-handlebars
+vim-indent-guides

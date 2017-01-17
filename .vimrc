@@ -83,6 +83,7 @@ NeoBundle 'kchmck/vim-coffee-script'
 NeoBundle 'nono/vim-handlebars'
 NeoBundle 'vim-jp/vim-go-extra'
 NeoBundle 'google/vim-ft-go'
+NeoBundle 'millermedeiros/vim-esformatter'
 
 call neobundle#end()
 filetype plugin indent on
